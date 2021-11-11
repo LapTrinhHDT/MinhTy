@@ -80,6 +80,8 @@ public:
 	virtual float TinhLuong() = 0;
 	float getLuong();
 	float getTienThuong();
+	string getTen();
+	string getMa();
 };
 
 Nguoi::Nguoi()
@@ -112,7 +114,12 @@ Nguoi::Nguoi(const Nguoi&nguoi)
 Nguoi::~Nguoi()
 {	
 }
-
+string Nguoi::getTen(){
+	return HoTen;
+}
+string Nguoi::getMa(){
+	return Ma;
+}
 void Nguoi::Nhap()
 {
 	cout<<"\tNhap Vao Ma So Nhan Vien: ";
@@ -333,8 +340,15 @@ public:
     ~QuanLiNhanVien();
 	Node* CreateNode(Nguoi* nv);
 	void AddLast(Nguoi *nv);
-	void traverse();//duyet danh sach
+	Node* traverse(Node *p
+	);//duyet danh sach
 	void XuatDS();
+	int DemNhanVien();
+	void TimKiemTen();
+	void TimKiemMa();
+	void removefirst();
+	void removelast();
+	void XoaNhanVien();
 	
 }; 
 
@@ -371,15 +385,11 @@ void QuanLiNhanVien::AddLast(Nguoi *nv) {
     }
     size ++;
 }
-
-void QuanLiNhanVien::traverse(){
-	Node* p = head;
-	while (p != NULL) {
-		cout << p->data << "\t";
-		p = p->next;
-	}
-	cout << endl;
-	delete p;
+Node *QuanLiNhanVien::traverse(Node *p){
+	Node *t = head;
+	while (t->next != p)
+		t = t->next;
+	return t;
 }
 
 
@@ -432,28 +442,103 @@ void QuanLiNhanVien::XuatDS(){
 	Nguoi *nv;
 	cout<<endl<<"*******Danh sach Nhan Vien*******"<<endl;
 	for(Node *p= head;p!=NULL;p = p->next){
-		p->data.Xuat();
+		p->data->Xuat();
 		cout<<"---------------------------------------------"<<endl;
     }	
 }
+void QuanLiNhanVien::TimKiemTen(){
+	string TenTK;
+	cout<<"Nhap Ten Nhan Vien can tim:";
+	fflush(stdin);
+	getline(cin,TenTK);
+	for(Node*p=head;p!=NULL;p=p->next){
+		if(p->data->getTen()==TenTK){
+			p->data->Xuat();
+		}
+	}
+}
+void QuanLiNhanVien::TimKiemMa(){
+	string MaTK;
+	cout<<"Nhap Ma Nhan Vien can tim:";
+	fflush(stdin);
+	getline(cin,MaTK);
+	for(Node*p=head;p!=NULL;p=p->next){
+		if(p->data->getMa()==MaTK){
+			p->data->Xuat();
+		}
+	}
+}
+int QuanLiNhanVien::DemNhanVien(){
+	int Dem=0;
+	for(Node*p=head;p!=NULL;p=p->next){
+		Dem++;
+	}
+	cout<<"Tong so Nhan Vien la:"<<Dem<<endl;
+}
+void QuanLiNhanVien::removefirst(){
+   if(head==NULL){
+   	    cout<<"ko xoa duoc!";
+	}else{
+		Node*t=head;
+		head=head->next;
+		delete t;
+		size--;
+    }
+}
 
-
-	void ThemNhanVien(Nguoi *nv);//hoi if v�o class nao 		
-	int DemNhanVien();	// Count the number of students with low GPA (GPA < 4)
-	void Duyet();//tim kiem nhan vien 
-	void XoaNhanVien();
+void QuanLiNhanVien::XoaNhanVien(){
+	string Maxoa;
+	cout<<"Nhap Ma Nhan Vien can xoa:";
+	fflush(stdin);
+	getline(cin,Maxoa);
+	for(Node*p=head;p!=NULL;p=p->next){
+		if(p->data->getMa()==Maxoa){
+			if(p==head){
+			   	removefirst();
+			}
+			else if(p==tail){
+				removelast();
+			}
+			else{
+				Node *pre = traverse(p);
+            	pre->next = p->next;
+				delete p;
+				size--;
+			}
+		}
+	}
+}
+//void QuanLiNhanVien::XoaNhanVien(){
+//	Node *p;
+//	if (p == head) {
+//		removefirst();
+//		return;
+//	}
+//	if (p == tail) {
+//		removelast();
+//		return;
+//	}
+//	Node *pre = traverse(p);
+//	pre->next = p->next;
+//	delete p;
+//	size--;
+//}
+void QuanLiNhanVien::removelast(){
+	Node *pre = traverse(tail);
+	Node*t =tail;
+	pre->next=NULL;
+	tail=pre;
+	delete t;
+	size--;
+}	
 	void SapXepTen();
 	void SapXepLuong();
-	void HienThi();
-	int TimKiemTen();
-	int TimKiemMa();
 	int SuaNhanVien();
 	int SuaTen();
 	int SuaMa();
 	int SuaChuaVu();//tang chuc , giam chuc , duoi viec, thu viec  
 	int MaxLuong();//min
 	void TongLuong();
-	void TongNhanVien();
 	void Giaodien();
 
 void Menu()
@@ -462,14 +547,14 @@ void Menu()
 	int n;
 	int Chon, Flat =1;
     int SL1,SL2,SL3,SL4;
-	while(Flat)
-	{
+	do{
 		cout<<"               Quan Li Nhan Vien              "<<endl;
 		cout<<"----------------------------------------------"<<endl;
 		cout<<"               CHUC NANG                      "<<endl;
-		cout<<"1. nhap            ||    2. xuat              "<<endl;
-		cout<<"3. Them Nhan Vien  ||    4. xoa               "<<endl;
-		cout<<"                                              "<<endl;
+		cout<<"1. Nhap                      ||    2. Xuat              "<<endl;
+		cout<<"3. Them Nhan Vien            ||    4. Xoa               "<<endl;
+		cout<<"5. Dem Tong Nhan Vien        ||    6. Tim Kiem nhan vien theo Ten"<<endl;
+		cout<<"7.Tim Kiem Nhan Vien Theo Ma ||    8. Xoa Nhan Vien    " <<endl;
 		cout<<"----------------------------------------------"<<endl;
 		cout<<"Hay Chon Mot Chuc Nang (Bam So): ";
 		cin >> Chon;
@@ -491,18 +576,27 @@ void Menu()
 				}
 			case 4:
 				{
+					
+					break;
+				}
+			case 5:
+				{
+					t.DemNhanVien();
 					break;
 				}
 			case 6:
 				{
+					t.TimKiemTen();					
 					break;
 				}
 			case 7:
 				{
+					t.TimKiemMa();
 					break;
 				}
 			case 8:
 				{
+   			    	t.XoaNhanVien();
 					break;
 				}
 			case 9:
@@ -525,12 +619,9 @@ void Menu()
 				{
 					break;
 				}
-			case 14:
+			case 0:
 				{
-					break;
-				}
-			case 15:
-				{
+					cout<<"Ban da Thoat!"<<endl;
 					break;
 				}
 			default:
@@ -539,7 +630,7 @@ void Menu()
 					break;
 				}
 		}		
-	}
+	}while(Chon != 0);
 }
 
 int main()
