@@ -351,6 +351,8 @@ public:
 	void XoaNhanVien();
 	void SapXepTen();
 	void SapXepMa();
+	void MaxLuong();
+	void MinLuong();
 }; 
 
         //begin
@@ -556,12 +558,30 @@ void QuanLiNhanVien::SapXepMa(){
 		}
 	}
 }
-                        
+void QuanLiNhanVien::MaxLuong(){
+	Node*p=head;
+	float Max=head->data->TinhLuong();
+	for(p=head->next;p!=NULL;p=p->next){
+		if(p->data->TinhLuong() > Max){
+			Max=p->data->TinhLuong();
+		}
+	}
+	p->data->Xuat();
+}          
+void QuanLiNhanVien::MinLuong(){
+	Node*p=head;
+	float Min=head->data->TinhLuong();
+	for(p=head->next;p!=NULL;p=p->next){
+		if(p->data->TinhLuong() < Min){
+			Min=p->data->TinhLuong();
+		}
+	}
+	p->data->Xuat();
+}                
 	int SuaNhanVien();
 	int SuaTen();
 	int SuaMa();
-	int SuaChuaVu();//tang chuc , giam chuc , duoi viec, thu viec  
-	int MaxLuong();//min
+	int SuaChuaVu();//tang chuc , giam chuc , duoi viec, thu viec 
 	void TongLuong();
 	void Giaodien();
 
@@ -637,10 +657,12 @@ void Menu()
 				}
 			case 11:
 				{
+					t.MaxLuong();
 					break;
 				}
 			case 12:
 				{
+					t.MinLuong();
 					break;
 				}
 			case 13:
