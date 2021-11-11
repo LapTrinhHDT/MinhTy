@@ -353,6 +353,7 @@ public:
 	void SapXepMa();
 	void MaxLuong();
 	void MinLuong();
+	void TongLuong();
 }; 
 
         //begin
@@ -578,13 +579,13 @@ void QuanLiNhanVien::MinLuong(){
 	}
 	p->data->Xuat();
 }                
-	int SuaNhanVien();
-	int SuaTen();
-	int SuaMa();
-	int SuaChuaVu();//tang chuc , giam chuc , duoi viec, thu viec 
-	void TongLuong();
-	void Giaodien();
-
+void QuanLiNhanVien::TongLuong(){
+	float Tong=0;
+	for(Node*p=head;p!=NULL;p=p->next){
+		Tong=Tong+p->data->TinhLuong();
+	}
+	cout<<"Tong Luong cua tat ca Nhan Vien la:"<<Tong<<endl;
+}
 void Menu()
 {
 	QuanLiNhanVien t;
@@ -667,6 +668,7 @@ void Menu()
 				}
 			case 13:
 				{
+					t.TongLuong();
 					break;
 				}
 			case 0:
