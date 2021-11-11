@@ -198,7 +198,7 @@ void NhanVienChinhThuc::Xuat()
 
 float NhanVienChinhThuc::TinhLuong()
 {
-	
+	return (HeSoLuong*1600*0.8);
 }
 
 
@@ -231,7 +231,7 @@ void NhanVienBanThoiGian::Xuat()
 }
 
 float NhanVienBanThoiGian::TinhLuong(){
-	
+	return (SoGioLam*SoLuongTheoGio);
 }
 
 
@@ -263,7 +263,7 @@ void NhanVienLamTheoSanPham::Xuat()
 	cout<<"\tVao Gia Hang: "<<GiaHang<<endl;
 }
 float NhanVienLamTheoSanPham::TinhLuong(){
-	
+	return (SoLuongHang *GiaHang);
 }
 
 
@@ -297,7 +297,7 @@ void NhanVienThuViec::Xuat()
 }
 
 float NhanVienThuViec::TinhLuong(){
-	
+	return (LuongTheoGio*8);
 }
 //==============================Ham Nhap ================================
 
@@ -349,7 +349,8 @@ public:
 	void removefirst();
 	void removelast();
 	void XoaNhanVien();
-	
+	void SapXepTen();
+	void SapXepMa();
 }; 
 
         //begin
@@ -531,8 +532,31 @@ void QuanLiNhanVien::removelast(){
 	delete t;
 	size--;
 }	
-	void SapXepTen();
-	void SapXepLuong();
+void QuanLiNhanVien::SapXepTen(){
+	Node*temp;
+	for(Node*p=head;p!=tail;p=p->next){
+		for(Node*q=p->next;q!=NULL;q=q->next){
+		    if(p->data->getTen() > q->data->getTen()){
+		        temp->data =p->data;
+		        p->data=q->data;
+		        q->data=temp->data;
+		   }
+		}
+	}
+}
+void QuanLiNhanVien::SapXepMa(){
+	Node*temp;
+	for(Node*p=head;p!=tail;p=p->next){
+		for(Node*q=p->next;q!=NULL;q=q->next){
+		    if(p->data->getMa() > q->data->getMa()){
+		        temp->data =p->data;
+		        p->data=q->data;
+		        q->data=temp->data;
+		   }
+		}
+	}
+}
+                        
 	int SuaNhanVien();
 	int SuaTen();
 	int SuaMa();
@@ -601,10 +625,14 @@ void Menu()
 				}
 			case 9:
 				{
+					t.SapXepTen();
+					t.XuatDS();
 					break;
 				}
 			case 10:
 				{
+					t.SapXepMa();
+					t.XuatDS();
 					break;
 				}
 			case 11:
