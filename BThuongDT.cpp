@@ -18,6 +18,7 @@ public:
 	~Day();
 	void NhapDay();
 	void XuatDay();
+	friend class QuanLiNhanVien;
 };
 
 Day::Day()
@@ -68,7 +69,6 @@ private:
 	string DiaChi;
 	float Luong;
 	float TienThuong;
-	
 public:
 	//ham tao ham huy 
 	Nguoi();
@@ -80,8 +80,7 @@ public:
 	virtual float TinhLuong() = 0;
 	float getLuong();
 	float getTienThuong();
-	string getTen();
-	string getMa();
+	friend class QuanLiNhanVien;
 };
 
 Nguoi::Nguoi()
@@ -113,12 +112,6 @@ Nguoi::Nguoi(const Nguoi&nguoi)
 
 Nguoi::~Nguoi()
 {	
-}
-string Nguoi::getTen(){
-	return HoTen;
-}
-string Nguoi::getMa(){
-	return Ma;
 }
 void Nguoi::Nhap()
 {
@@ -340,8 +333,9 @@ public:
     ~QuanLiNhanVien();
 	Node* CreateNode(Nguoi* nv);
 	void AddLast(Nguoi *nv);
-	Node* traverse(Node *p
-	);//duyet danh sach
+	Node* traverse();//duyet danh sach
+	Node* previous(Node *p);
+	void insertafter(Node* p, Nguoi *nv);
 	void XuatDS();
 	int DemNhanVien();
 	void TimKiemTen();
@@ -354,6 +348,9 @@ public:
 	void MaxLuong();
 	void MinLuong();
 	void TongLuong();
+	Node* getHead(){
+		return head;
+	}
 }; 
 
         //begin
@@ -389,11 +386,14 @@ void QuanLiNhanVien::AddLast(Nguoi *nv) {
     }
     size ++;
 }
-Node *QuanLiNhanVien::traverse(Node *p){
-	Node *t = head;
-	while (t->next != p)
-		t = t->next;
-	return t;
+Node *QuanLiNhanVien::traverse(){
+	Node* p = head;
+	while (p != NULL) {
+		cout << p->data << "\t";
+		p = p->next;
+	}
+	cout << endl;
+	delete p;
 }
 
 
@@ -450,13 +450,107 @@ void QuanLiNhanVien::XuatDS(){
 		cout<<"---------------------------------------------"<<endl;
     }	
 }
+void QuanLiNhanVien::insertafter(Node* p, Nguoi *nv){
+	if (p == tail)
+        AddLast(nv);
+    else {
+        Node *q = CreateNode(nv);
+        q->next = p->next;
+        p->next = q;      
+    }
+    size++;
+}
+void ThemNhanVien(QuanLiNhanVien &QL)
+{
+	Nguoi *nv;
+	int a, flat = 0;
+	Node* p=QL.getHead();
+	while(flat)
+	{
+		cout<<"1: Nhan vien Chinh Thuc." << endl;
+		cout<<"2: Nhan Vien Lam Theo San Pham." <<endl;
+		cout<<"3: Nhan Vien Ban Thoi Gian."<<endl;
+		cout<<"4: Nhan Vien Thu Viec."<<endl;
+		cout<<"Hay Chon mot chuc Nang Tren (Bam So): "<<endl;
+		cin>>a;
+		switch(a)
+		{
+			case 1:
+			{		
+				while(p !=NULL)
+				{
+	       			if(p->data == nv) 
+						break;
+	       			p=p->next;
+	    		}
+	   			cout<<"Nhap vao Nhan Vien can Them can them: "<<endl;
+	   			nv =new NhanVienChinhThuc;
+	   			nv->Nhap();
+	    		QL.insertafter(p,nv);
+	    		break;
+			}
+			case 2:
+			{	
+				while(p !=NULL)
+				{
+	       			if(p->data == nv) 
+						break;
+	        		p=p->next;
+	   			}
+	   			cout<<"Nhap vao Nhan Vien can Them can them: "<<endl;
+	   			nv =new NhanVienBanThoiGian;
+	   			nv->Nhap();
+	    		QL.insertafter(p,nv);
+	    		break;
+			}
+			case 3:
+			{
+				while(p !=NULL)
+				{
+	       			if(p->data == nv) 
+						break;
+	        		p=p->next;
+	    		}
+	   			cout<<"Nhap vao Nhan Vien can Them can them: "<<endl;
+	   			nv = new NhanVienLamTheoSanPham;
+				nv->Nhap();
+	   			QL.insertafter(p,nv);
+	    		break;
+			}
+			case 4:
+			{					
+				while(p !=NULL)
+				{
+	       			if(p->data == nv) 
+						break;
+	        		p=p->next;
+    			}
+				cout<<"Nhap vao Nhan Vien can Them can them: "<<endl;
+	   			nv = new NhanVienThuViec;
+				nv->Nhap();
+	   			QL.insertafter(p,nv);
+	    		break;
+			}
+			case 5:
+			{
+				flat = 1;
+				break;
+			}
+			default:
+			{
+				cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
+				break;
+			}
+		}
+	}
+}
 void QuanLiNhanVien::TimKiemTen(){
 	string TenTK;
 	cout<<"Nhap Ten Nhan Vien can tim:";
 	fflush(stdin);
 	getline(cin,TenTK);
 	for(Node*p=head;p!=NULL;p=p->next){
-		if(p->data->getTen()==TenTK){
+		if(p->data->HoTen==TenTK){
 			p->data->Xuat();
 		}
 	}
@@ -467,7 +561,7 @@ void QuanLiNhanVien::TimKiemMa(){
 	fflush(stdin);
 	getline(cin,MaTK);
 	for(Node*p=head;p!=NULL;p=p->next){
-		if(p->data->getMa()==MaTK){
+		if(p->data->Ma==MaTK){
 			p->data->Xuat();
 		}
 	}
@@ -479,32 +573,53 @@ int QuanLiNhanVien::DemNhanVien(){
 	}
 	cout<<"Tong so Nhan Vien la:"<<Dem<<endl;
 }
+Node* QuanLiNhanVien::previous(Node *p) {
+	Node *t = head;
+	while (t->next != p)
+		t = t->next;
+	return t;
+}
 void QuanLiNhanVien::removefirst(){
-   if(head==NULL){
-   	    cout<<"ko xoa duoc!";
-	}else{
-		Node*t=head;
-		head=head->next;
-		delete t;
-		size--;
-    }
+    if (size == 0)
+        return;
+    Node *t = head;
+    head = head->next;
+    delete t;
+    size--;
 }
 
+void QuanLiNhanVien::removelast() {
+    if (size == 0)
+        return;
+    if (size == 1) {
+        delete head;
+        size--;
+        return;
+    }
+    Node *p = previous(tail);
+    Node *t = tail;    
+    p->next = NULL;
+    tail = p;
+    delete t;
+    size--;
+}
 void QuanLiNhanVien::XoaNhanVien(){
 	string Maxoa;
 	cout<<"Nhap Ma Nhan Vien can xoa:";
 	fflush(stdin);
 	getline(cin,Maxoa);
 	for(Node*p=head;p!=NULL;p=p->next){
-		if(p->data->getMa()==Maxoa){
+		if(p->data->Ma == Maxoa){
 			if(p==head){
 			   	removefirst();
+			   	return;
 			}
 			else if(p==tail){
 				removelast();
+				return;
 			}
 			else{
-				Node *pre = traverse(p);
+				Node *pre =  previous(p);
             	pre->next = p->next;
 				delete p;
 				size--;
@@ -512,34 +627,11 @@ void QuanLiNhanVien::XoaNhanVien(){
 		}
 	}
 }
-//void QuanLiNhanVien::XoaNhanVien(){
-//	Node *p;
-//	if (p == head) {
-//		removefirst();
-//		return;
-//	}
-//	if (p == tail) {
-//		removelast();
-//		return;
-//	}
-//	Node *pre = traverse(p);
-//	pre->next = p->next;
-//	delete p;
-//	size--;
-//}
-void QuanLiNhanVien::removelast(){
-	Node *pre = traverse(tail);
-	Node*t =tail;
-	pre->next=NULL;
-	tail=pre;
-	delete t;
-	size--;
-}	
 void QuanLiNhanVien::SapXepTen(){
 	Node*temp;
 	for(Node*p=head;p!=tail;p=p->next){
 		for(Node*q=p->next;q!=NULL;q=q->next){
-		    if(p->data->getTen() > q->data->getTen()){
+		    if(p->data->HoTen > q->data->Ma){
 		        temp->data =p->data;
 		        p->data=q->data;
 		        q->data=temp->data;
@@ -551,7 +643,7 @@ void QuanLiNhanVien::SapXepMa(){
 	Node*temp;
 	for(Node*p=head;p!=tail;p=p->next){
 		for(Node*q=p->next;q!=NULL;q=q->next){
-		    if(p->data->getMa() > q->data->getMa()){
+		    if(p->data->Ma > q->data->Ma){
 		        temp->data =p->data;
 		        p->data=q->data;
 		        q->data=temp->data;
@@ -595,11 +687,13 @@ void Menu()
 	do{
 		cout<<"               Quan Li Nhan Vien              "<<endl;
 		cout<<"----------------------------------------------"<<endl;
-		cout<<"               CHUC NANG                      "<<endl;
-		cout<<"1. Nhap                      ||    2. Xuat              "<<endl;
-		cout<<"3. Them Nhan Vien            ||    4. Xoa               "<<endl;
-		cout<<"5. Dem Tong Nhan Vien        ||    6. Tim Kiem nhan vien theo Ten"<<endl;
-		cout<<"7.Tim Kiem Nhan Vien Theo Ma ||    8. Xoa Nhan Vien    " <<endl;
+		cout<<"                            CHUC NANG                      "<<endl;
+		cout<<"1. Nhap                        ||    2. Xuat              "<<endl;
+		cout<<"3. Them Nhan Vien              ||    4. Xoa Nhan Vien              "<<endl;
+		cout<<"5. Dem Tong Nhan Vien          ||    6. Tim Kiem nhan vien theo Ten"<<endl;
+		cout<<"7. Tim Kiem Nhan Vien Theo Ma  ||    8. Sap xep Nhan Vien Theo Ten " <<endl;
+		cout<<"9. Sap xep Nhan Vien Theo Ma   ||    10.Nhan Vien co Luong cao nhat"<<endl;
+		cout<<"11.Nhan Vien co Luong thap nhat||    12.tong Luong cua nhan vien "<<endl;
 		cout<<"----------------------------------------------"<<endl;
 		cout<<"Hay Chon Mot Chuc Nang (Bam So): ";
 		cin >> Chon;
@@ -617,11 +711,12 @@ void Menu()
 				}
 			case 3:
 				{
+					ThemNhanVien(t);
 					break;
 				}
 			case 4:
 				{
-					
+					t.XoaNhanVien();
 					break;
 				}
 			case 5:
@@ -641,34 +736,34 @@ void Menu()
 				}
 			case 8:
 				{
-   			    	t.XoaNhanVien();
-					break;
-				}
-			case 9:
-				{
-					t.SapXepTen();
+   			        t.SapXepTen();
 					t.XuatDS();
 					break;
 				}
-			case 10:
+			case 9:
 				{
 					t.SapXepMa();
 					t.XuatDS();
 					break;
 				}
-			case 11:
+			case 10:
 				{
-					t.MaxLuong();
+				    t.MaxLuong();
 					break;
 				}
-			case 12:
+			case 11:
 				{
 					t.MinLuong();
 					break;
 				}
-			case 13:
+			case 12:
 				{
 					t.TongLuong();
+					break;
+				}
+			case 13:
+				{
+					
 					break;
 				}
 			case 0:
