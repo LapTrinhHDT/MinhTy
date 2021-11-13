@@ -297,7 +297,7 @@ float NhanVienThuViec::TinhLuong(){
 }
 //==============================Ham Nhap ================================
 
-typedef int Item;
+typedef Nguoi Item;
 struct Node {
 	Nguoi *data;
 	Node *next;
@@ -316,6 +316,7 @@ public:
 	void traverse();//duyet danh sach
 	void XuatDS();
 	void insertafter(Node* p, Nguoi *nv);
+	void swapData(Node *p, Node *q);
 	void TimKiemTen();
 	void TimKiemMa();
 	void DemNhanVien();
@@ -614,14 +615,18 @@ void QuanLiNhanVien::XoaNhanVien(){
 		}
 	}
 }
+void QuanLiNhanVien::swapData(Node *p, Node *q){
+	Nguoi *temp;
+    temp = p->data;
+    p->data = q->data;
+    q->data = temp;
+}
 void QuanLiNhanVien::SapXepTen(){
 	Node*temp;
 	for(Node*p=head;p!=tail;p=p->next){
 		for(Node*q=p->next;q!=NULL;q=q->next){
-		    if(p->data->HoTen > q->data->Ma){
-		        temp->data =p->data;
-		        p->data=q->data;
-		        q->data=temp->data;
+		    if(p->data->HoTen > q->data->HoTen){
+		        swapData(p,q);
 		   }
 		}
 	}
@@ -631,9 +636,7 @@ void QuanLiNhanVien::SapXepMa(){
 	for(Node*p=head;p!=tail;p=p->next){
 		for(Node*q=p->next;q!=NULL;q=q->next){
 		    if(p->data->Ma > q->data->Ma){
-		        temp->data =p->data;
-		        p->data=q->data;
-		        q->data=temp->data;
+		        swapData(p,q);
 		   }
 		}
 	}
