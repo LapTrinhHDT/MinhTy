@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<string>
 using namespace std;
-
+//---------------------------------------Ngay Thang------------------------------------------
 class Day
 {
 protected:
@@ -56,7 +56,6 @@ void Day::XuatDay()
 	cout << ngay << "/" << thang << "/" << nam << endl;
 }
 
-
 			//XAY DUNG LOP NGUOI
 class Nguoi : public Day
 {
@@ -78,8 +77,6 @@ public:
 	virtual void Nhap();
 	virtual void Xuat();
 	virtual float TinhLuong() = 0;
-	float getLuong();
-	float getTienThuong();
 	friend class QuanLiNhanVien;
 };
 
@@ -113,6 +110,7 @@ Nguoi::Nguoi(const Nguoi&nguoi)
 Nguoi::~Nguoi()
 {	
 }
+
 void Nguoi::Nhap()
 {
 	cout<<"\tNhap Vao Ma So Nhan Vien: ";
@@ -144,16 +142,9 @@ void Nguoi::Xuat()
 	cout<<"\tDia Chi: "<<DiaChi<<endl;
 }
 
-float Nguoi::getLuong()
-{
-	return Luong;
-}
-float Nguoi::getTienThuong()
-{
-	return TienThuong;
-}
 
-		//THONG TIN NHAN VIEN
+		                //THONG TIN NHAN VIEN
+//------------------------------Nhan vien chinh thuc-------------------
 class NhanVienChinhThuc : public Nguoi
 {
 private:
@@ -165,7 +156,8 @@ public:
 	void Nhap();
 	void Xuat();
 	float TinhLuong();//Hesoluong*1600*0.8
-	float TienThuong();//bao nhieu cha duoc 
+	float TienThuong();//bao nhieu cha duoc
+	friend class QuanLiNhanVien; 
 };
 
 void NhanVienChinhThuc::Nhap()
@@ -182,18 +174,20 @@ void NhanVienChinhThuc::Nhap()
 }
 void NhanVienChinhThuc::Xuat()
 {
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\tNhan Vien Chinh Thuc:"<<endl<<endl;
 	Nguoi::Xuat();
 	cout<<"\tChuc Vu cua nhan vien : "<<ChucVu<<endl;
 	cout<<"\tTham Nien : "<<ThamNien<<endl;
 	cout<<"\tBo Phan Lam Viec La: "<<BoPhan<<endl;
 }
 
-
 float NhanVienChinhThuc::TinhLuong()
 {
 	return (HeSoLuong*1600*0.8);
 }
 
+//---------------------------------Nhan Vien Ban Thoi Gian-------------------
 
 class NhanVienBanThoiGian : public Nguoi
 {
@@ -204,7 +198,7 @@ public:
 	void Nhap();
 	void Xuat();
 	float TinhLuong();// so gio nhan voi so luong theo gio
-//	friend class QuanLiNhanVien;
+	friend class QuanLiNhanVien;
 };
 
 void NhanVienBanThoiGian::Nhap()
@@ -218,6 +212,8 @@ void NhanVienBanThoiGian::Nhap()
 
 void NhanVienBanThoiGian::Xuat()
 {
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\tNhan Vien Ban Thoi Gian:"<<endl<<endl;
 	Nguoi::Xuat();
 	cout<<"\tSo Gio Lam la: "<<SoGioLam<<endl;
 	cout<<"\tSo luong Theo Gio La: "<<SoLuongTheoGio<<endl;
@@ -226,6 +222,8 @@ void NhanVienBanThoiGian::Xuat()
 float NhanVienBanThoiGian::TinhLuong(){
 	return (SoGioLam*SoLuongTheoGio);
 }
+
+//-------------------------------Nhan Vien Ban Theo San Pham----------------------
 
 
 class NhanVienLamTheoSanPham : public Nguoi
@@ -237,7 +235,7 @@ public:
 	void Nhap();
 	void Xuat();
 	float TinhLuong();//so luong hang * gia hang
-
+	friend class QuanLiNhanVien;
 };
 
 void NhanVienLamTheoSanPham::Nhap()
@@ -251,6 +249,8 @@ void NhanVienLamTheoSanPham::Nhap()
 
 void NhanVienLamTheoSanPham::Xuat()
 {
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\tNhan Vien Lam Theo San Pham:"<<endl<<endl;
 	Nguoi::Xuat();
 	cout<<"\tSo Luong Hang Hoa: "<<SoLuongHang<<endl;
 	cout<<"\tVao Gia Hang: "<<GiaHang<<endl;
@@ -259,6 +259,7 @@ float NhanVienLamTheoSanPham::TinhLuong(){
 	return (SoLuongHang *GiaHang);
 }
 
+//--------------------------------------Nhan Vien Thu Viec---------------------------
 
 class NhanVienThuViec : public Nguoi
 {
@@ -269,7 +270,7 @@ public:
 	void Nhap();
 	void Xuat();
 	float TinhLuong();// muc luong co ban cua nhan vien = luong theo gio* 8 time;
-//	friend class QuanLiNhanVien;
+	friend class QuanLiNhanVien;
 }; 
 
 void NhanVienThuViec::Nhap()
@@ -283,6 +284,8 @@ void NhanVienThuViec::Nhap()
 
 void NhanVienThuViec::Xuat()
 {
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\t Nhan Vien Thu Viec:"<<endl<<endl;
 	Nguoi::Xuat();
 	cout<<"\tNgay vao lam la: ";
 	NgayVaoLam.XuatDay();
@@ -294,29 +297,6 @@ float NhanVienThuViec::TinhLuong(){
 }
 //==============================Ham Nhap ================================
 
-
-//==============================danh sach lien ke========================
-/*
-typedef class node* Node;
-class node {
-    private:
-        Nguoi *data;
-	    Node next;
-    public:
-       node(Node next);
-       void SetNext(Node next);
-       Node getNext();
-       friend class QuanLiNhanVien;
-};
-void node::SetNext(Node next)
-{
-    this->next = next;
-}
-Node node::getNext()
-{
-    return next;
-}
-*/
 typedef int Item;
 struct Node {
 	Nguoi *data;
@@ -333,13 +313,14 @@ public:
     ~QuanLiNhanVien();
 	Node* CreateNode(Nguoi* nv);
 	void AddLast(Nguoi *nv);
-	Node* traverse();//duyet danh sach
-	Node* previous(Node *p);
-	void insertafter(Node* p, Nguoi *nv);
+	void traverse();//duyet danh sach
 	void XuatDS();
-	int DemNhanVien();
+	void insertafter(Node* p, Nguoi *nv);
 	void TimKiemTen();
 	void TimKiemMa();
+	void DemNhanVien();
+	void SuaNhanVien();
+	Node *previous(Node *p); 
 	void removefirst();
 	void removelast();
 	void XoaNhanVien();
@@ -351,9 +332,9 @@ public:
 	Node* getHead(){
 		return head;
 	}
-}; 
 
-        //begin
+}; 
+         //begin
 QuanLiNhanVien::QuanLiNhanVien()
 {
 	head = NULL;
@@ -386,7 +367,8 @@ void QuanLiNhanVien::AddLast(Nguoi *nv) {
     }
     size ++;
 }
-Node *QuanLiNhanVien::traverse(){
+
+void QuanLiNhanVien::traverse(){
 	Node* p = head;
 	while (p != NULL) {
 		cout << p->data << "\t";
@@ -395,7 +377,6 @@ Node *QuanLiNhanVien::traverse(){
 	cout << endl;
 	delete p;
 }
-
 
 //----------------------------------------cac Ham --------------------------------
 
@@ -544,8 +525,10 @@ void ThemNhanVien(QuanLiNhanVien &QL)
 		}
 	}
 }
+
 void QuanLiNhanVien::TimKiemTen(){
 	string TenTK;
+
 	cout<<"Nhap Ten Nhan Vien can tim:";
 	fflush(stdin);
 	getline(cin,TenTK);
@@ -566,13 +549,15 @@ void QuanLiNhanVien::TimKiemMa(){
 		}
 	}
 }
-int QuanLiNhanVien::DemNhanVien(){
+void QuanLiNhanVien::DemNhanVien(){
 	int Dem=0;
 	for(Node*p=head;p!=NULL;p=p->next){
 		Dem++;
 	}
 	cout<<"Tong so Nhan Vien la:"<<Dem<<endl;
 }
+
+
 Node* QuanLiNhanVien::previous(Node *p) {
 	Node *t = head;
 	while (t->next != p)
@@ -603,6 +588,8 @@ void QuanLiNhanVien::removelast() {
     delete t;
     size--;
 }
+
+
 void QuanLiNhanVien::XoaNhanVien(){
 	string Maxoa;
 	cout<<"Nhap Ma Nhan Vien can xoa:";
