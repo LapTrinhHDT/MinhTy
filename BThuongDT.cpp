@@ -3,6 +3,7 @@
 #include<conio.h>
 #include<stdio.h>
 #include<string>
+#include <Windows.h>
 using namespace std;
 //---------------------------------------Ngay Thang------------------------------------------
 class Day
@@ -168,7 +169,7 @@ void NhanVienChinhThuc::Nhap()
 	getline(cin, ChucVu);
 	cout<<"\tnhap vao tham nien: ";
 	cin>> ThamNien;
-	cout<<"nhap Vao bo Phan viec lam: ";
+	cout<<"\tnhap Vao bo Phan viec lam: ";
 	fflush(stdin);
 	getline(cin, BoPhan);
 }
@@ -643,28 +644,30 @@ void QuanLiNhanVien::SapXepMa(){
 }
 void QuanLiNhanVien::MaxLuong(){
 	Node*p=head;
-	float Max=head->data->TinhLuong();
+	Nguoi *Max=head->data;
 	for(p=head->next;p!=NULL;p=p->next){
-		if(p->data->TinhLuong() > Max){
-			Max=p->data->TinhLuong();
+		if(p->data->TinhLuong() > Max->TinhLuong()){
+			Max=p->data;
 		}
 	}
-	p->data->Xuat();
+	cout<<"Nhan Vien co Luong cao nhat"<<endl;
+	Max->Xuat();
 }          
 void QuanLiNhanVien::MinLuong(){
 	Node*p=head;
-	float Min=head->data->TinhLuong();
+	Nguoi *Min=head->data;
 	for(p=head->next;p!=NULL;p=p->next){
-		if(p->data->TinhLuong() < Min){
-			Min=p->data->TinhLuong();
+		if(p->data->TinhLuong() < Min->TinhLuong()){
+			Min=p->data;
 		}
 	}
-	p->data->Xuat();
+	cout<<"Nhan Vien co Luong thap nhat"<<endl;
+	Min->Xuat();
 }                
 void QuanLiNhanVien::TongLuong(){
 	float Tong=0;
 	for(Node*p=head;p!=NULL;p=p->next){
-		Tong=Tong+p->data->TinhLuong();
+		Tong=Tong+ p->data->TinhLuong();
 	}
 	cout<<"Tong Luong cua tat ca Nhan Vien la:"<<Tong<<endl;
 }
@@ -675,10 +678,10 @@ void Menu()
 	int Chon, Flat =1;
     int SL1,SL2,SL3,SL4;
 	do{
-		cout<<"               Quan Li Nhan Vien              "<<endl;
+		cout<<"                        QUAN LI NHAN VIEN            "<<endl;
 		cout<<"----------------------------------------------"<<endl;
 		cout<<"                            CHUC NANG                      "<<endl;
-		cout<<"1. Nhap                        ||    2. Xuat              "<<endl;
+		cout<<"1. Nhap Danh Sach Nhan Vien    ||    2. Xuat Danh Sach Nhan Vien  "<<endl;
 		cout<<"3. Them Nhan Vien              ||    4. Xoa Nhan Vien              "<<endl;
 		cout<<"5. Dem Tong Nhan Vien          ||    6. Tim Kiem nhan vien theo Ten"<<endl;
 		cout<<"7. Tim Kiem Nhan Vien Theo Ma  ||    8. Sap xep Nhan Vien Theo Ten " <<endl;
@@ -773,4 +776,39 @@ void Menu()
 int main()
 {
     Menu() ;
+}
+// Hàm tô màu.
+void textcolor(int x)
+{
+	HANDLE mau;
+	mau=GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(mau,x);
+}
+
+// Hàm d?ch chuy?n con tr? d?n t?a d? x, y.
+void gotoxy(int x,int y)
+{    
+	HANDLE hConsoleOutput;    
+	COORD Cursor_an_Pos = {x-1,y-1};   
+	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);    
+	SetConsoleCursorPosition(hConsoleOutput , Cursor_an_Pos);
+}
+
+// Hàm xóa màn hình.
+void XoaManHinh()
+{
+	HANDLE hOut;
+	COORD Position;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(hOut, Position);
+}
+
+void ToMau(int x, int y, char *a, int color) 
+{
+	gotoxy(x, y);
+	textcolor(color);
+	cout << a;
+	textcolor(7);
 }
