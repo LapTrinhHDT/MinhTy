@@ -169,6 +169,8 @@ void NhanVienChinhThuc::Nhap()
 	getline(cin, ChucVu);
 	cout<<"\tnhap vao tham nien: ";
 	cin>> ThamNien;
+	cout<<"\tNhap He So Luong:";
+	cin>>HeSoLuong;
 	cout<<"\tnhap Vao bo Phan viec lam: ";
 	fflush(stdin);
 	getline(cin, BoPhan);
@@ -181,6 +183,7 @@ void NhanVienChinhThuc::Xuat()
 	cout<<"\tChuc Vu cua nhan vien : "<<ChucVu<<endl;
 	cout<<"\tTham Nien : "<<ThamNien<<endl;
 	cout<<"\tBo Phan Lam Viec La: "<<BoPhan<<endl;
+	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienChinhThuc::TinhLuong()
@@ -218,6 +221,7 @@ void NhanVienBanThoiGian::Xuat()
 	Nguoi::Xuat();
 	cout<<"\tSo Gio Lam la: "<<SoGioLam<<endl;
 	cout<<"\tSo luong Theo Gio La: "<<SoLuongTheoGio<<endl;
+	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienBanThoiGian::TinhLuong(){
@@ -255,6 +259,7 @@ void NhanVienLamTheoSanPham::Xuat()
 	Nguoi::Xuat();
 	cout<<"\tSo Luong Hang Hoa: "<<SoLuongHang<<endl;
 	cout<<"\tVao Gia Hang: "<<GiaHang<<endl;
+	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
 }
 float NhanVienLamTheoSanPham::TinhLuong(){
 	return (SoLuongHang *GiaHang);
@@ -291,6 +296,7 @@ void NhanVienThuViec::Xuat()
 	cout<<"\tNgay vao lam la: ";
 	NgayVaoLam.XuatDay();
 	cout<<"\tMuc Luong Theo Gio La: "<<LuongTheoGio<<endl;
+	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienThuViec::TinhLuong(){
