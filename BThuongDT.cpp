@@ -677,6 +677,285 @@ void QuanLiNhanVien::TongLuong(){
 	}
 	cout<<"Tong Luong cua tat ca Nhan Vien la:"<<Tong<<endl;
 }
+// Sua nhan vien
+void QuanLiNhanVien::SuaNhanVien(){
+	int chon, chon1, chon2, chon3;
+	int Flat= 1 , Tlat=1;
+	while (Flat)
+	{
+		string MaTK;
+		cout<<"Nhap Ma Nhan Vien can tim:";
+		fflush(stdin);
+		getline(cin,MaTK);
+		for(Node*p=head;p!=NULL;p=p->next){
+			if(p->data->Ma==MaTK){				
+				cout<<"Sua chua:"<<endl;
+				cout<<"1: Sua Thong Tin co Ban. "<<endl;
+				cout<<"2: Sua Thong Tin Theo Chuyen sau.  Canh Bao!  (Day La Noi Nhan Vien Khong Duoc Nhap Vo) "<<endl;
+				cout<<"3: Thoat."<<endl;
+				cout<<"Hay Lua Chon Theo Yeu Cau Ban Muon (Bam So)";
+				cin>>chon;
+				switch(chon)
+				{
+					case 1:
+						{
+							while(Flat)
+							{
+								cout<<"1: Sua Ten  "<<endl; 
+								cout<<"2: Sua Tuoi "<<endl;
+								cout<<"3: Sua Nam Sinh "<<endl;
+								cout<<"4: Sua Gioi Tinh"<<endl;
+								cout<<"5: Sua Dia Chi "<<endl;
+								cout<<"6: Thoat"<<endl;
+								cout<<"chon vao Thu can sua(Bam So): ";
+								cin>>chon1;
+								switch(chon1)
+								{
+									case 1:
+									{
+										string Ten;
+										cout<<"Nhap Vao Ten Can Sua La: ";
+										fflush(stdin);
+										getline(cin,Ten);
+										p->data->HoTen = Ten ;
+										cout<<"Ten Da Duoc Sua La: ";
+										p->data->Xuat();
+										break;
+									}
+										
+									case 2:
+									{
+										int Tuoi;
+										cout<<"Nhap Vao Tuoi Can Sua : ";
+										cin>>Tuoi;
+										p->data->Tuoi = Tuoi;
+										cout<<"Tuoi Da Duoc Sua La: ";
+										p->data->Xuat();
+										break;
+									}	
+									case 3:
+									{
+										Day NgaySinh;
+										cout<<"Nhap Ngay Sinh Can Sua ";
+										NgaySinh.NhapDay();
+										p->data->NgaySinh = NgaySinh;
+										cout<<"Ngay Sinh Da Duoc Sua La: ";
+										p->data->Xuat();
+										break;
+									}
+										
+									case 4:
+									{
+										string GioiTinh;
+										cout<<"Nhap Vao Gioi Tinh Can Sua La: ";
+										fflush(stdin);
+										getline(cin,GioiTinh);
+										p->data->GioiTinh = GioiTinh ;
+										cout<<"Gioi Tinh Da Duoc Sua La: ";
+										p->data->Xuat();	
+										break;
+									}
+									
+									case 5:
+									{
+										string DiaChi;
+										cout<<"Nhap Vao Dia Chi Can Sua La: ";
+										fflush(stdin);
+										getline(cin,DiaChi);
+										p->data->DiaChi = DiaChi ;
+										cout<<"Dia Chi Da Duoc Sua La: ";
+										p->data->Xuat();
+										break;
+									}
+									case 6:
+									{
+										Flat = 0;
+										break;
+									}
+									default:
+									{
+										cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
+										break;
+									}	
+								}
+							}
+						}
+					case 2:
+						{
+							while(Flat)
+							{
+								cout<<"Hay Chon Vung Sua Chua Ma Ban Muon Sua Doi"<<endl;
+								cout<<"1: Sua Chua Trong Nhan vien Chinh Thuc."<<endl;
+								cout<<"2: Sua Chua Trong Nhan Vien Ban Thoi Gian."<<endl;
+								cout<<"3: sua chua Trong Nhan Vien Lam Theo San Pham."<<endl;
+								cout<<"4: Sua Chua Theo Nhan Vien Thu Viec."<<endl;
+								cout<<"5: Thoat."<<endl;
+								cout<<"Chon Mot Chuc Nang (Bam So): ";
+								cin>>chon2;
+								switch(chon2)
+								{
+									case 1:
+									{
+										cout<<"1: Sua Chuc Vu"<<endl;
+										cout<<"1: Sua Tham Nien"<<endl;
+										cout<<"3: Sua Bo Phan "<<endl;
+										cout<<"4: Sua He So Luong "<<endl;
+										cout<<"chon vao Thu can sua (Bam So): ";		
+										cin>>chon3;
+										if(chon3 = 1)
+										{
+											Nguoi *nv= new NhanVienChinhThuc;
+											string ChucVu;
+											cout<<"Nhap Vao Chuc Vu Can Sua La: ";
+											fflush(stdin);
+											getline(cin,ChucVu);
+											ChucVu = ChucVu;
+											
+											cout<<"Chuc Vu Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 2)
+										{
+											int ThamNien;
+											cout<<"Nhap Vao Tham Nien Can Sua : ";
+											cin>>ThamNien;
+											p->data->ThamNien = ThamNien;
+											cout<<"Tham Nien Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 3)
+										{
+											string BoPhan;
+											cout<<"Nhap Vao Bo Phan Can Sua La: ";
+											fflush(stdin);
+											getline(cin,BoPhan);
+											p->data->BoPhan = BoPhan ;
+											cout<<"Bo Phan Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 4)
+										{
+											float HeSoLuong;
+											cout<<"Nhap Vao He So Luong Can Sua La: ";
+											cin>>HeSoLuong;
+											p->data->HeSoLuong = HeSoLuong ;
+											cout<<"He So Luong Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else
+											cout<<"Ban Chon Sai Va Bat Dau Lai Tu Dau"<<endl;
+										
+									}
+									case 2:
+									{
+										cout<<"1: Sua So Gio Lam "<<endl;
+										cout<<"2: Sua So Luong Theo Gio"<<endl;
+										cout<<"chon vao Thu can sua (Bam So): ";		
+										cin>>chon3;
+										if(chon3 = 1)
+										{
+											int SoGioLam;
+											cout<<"Nhap Vao So Gio Lam Can Sua : ";
+											cin>>SoGioLam;
+											p->data->SoGioLam = SoGioLam;
+											cout<<"So Gio Lam Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 2)
+										{
+											float SoLuongTheoGio;
+											cout<<"Nhap Vao So Luong Theo Gio Can Sua : ";
+											cin>>SoLuongTheoGio;
+											p->data->SoLuongTheoGio = SoLuongTheoGio;
+											cout<<"So Luong Theo Gio Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else
+											cout<<"Ban Chon Sai Va Bat Dau Lai Tu Dau"<<endl;
+									}
+									case 3:
+									{
+										cout<<"3: Sua So Luong Hang "<<endl;
+										cout<<"6: Sua Gia Hang "<<endl;
+										cout<<"chon vao Thu can sua (Bam So): ";		
+										cin>>chon3;
+										if(chon3 = 1)
+										{
+											int SoLuongHang;
+											cout<<"Nhap Vao So Luong Hang Can Sua : ";
+											cin>>SoLuongHang;
+											p->data->SoLuongHang = SoLuongHang;
+											cout<<"So Luong Hang Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 2)
+										{
+											float GiaHang;
+											cout<<"Nhap Vao Gia Hang Can Sua : ";
+											cin>>GiaHang;
+											p->data->GiaHang = GiaHang;
+											cout<<"Gia Hang Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else
+											cout<<"Ban Chon Sai Va Bat Dau Lai Tu Dau"<<endl;
+									}
+									case 4:
+									{
+										cout<<"7: Sua Luong Theo Gio"<<endl;
+										cout<<"8: Sua Ngay Vao Lam"<<endl;
+										cout<<"chon vao Thu can sua (Bam So): ";		
+										cin>>chon3;
+										if(chon3 = 1)
+										{
+											float LuongTheoGio;
+											cout<<"Nhap Vao Luong Theo Gio Can Sua : ";
+											cin>>LuongTheoGio;
+											p->data->LuongTheoGio = LuongTheoGio;
+											cout<<"Luong Theo Gio Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else if(chon3 = 2)
+										{
+											Day NgayVaoLam;
+											cout<<"Nhap Ngay Vao Lam Can Sua ";
+											NgayVaoLam.NhapDay();
+											p->data->NgayVaoLam = NgayVaoLam;
+											cout<<"Ngay Vao Lam Da Duoc Sua La: ";
+											p->data->Xuat();
+										}
+										else
+											cout<<"Ban Chon Sai Va Bat Dau Lai Tu Dau"<<endl;
+									}
+									case 5:
+									{
+										Flat = 0;
+										break;
+									}
+									default:
+									{
+										cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
+										break;
+									}	
+								}
+							}
+						}
+					case 3:
+					{
+						Flat = 0;
+						break;
+					}
+					default:
+					{
+						cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+//---------------------------------------------
 void Menu()
 {
 	QuanLiNhanVien t;
