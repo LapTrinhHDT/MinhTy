@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<windows.h>
 #include<string>
-
+#define MAX 100
 #define UP 72
 #define DOWN 80
 #define BACKSPACE 8
@@ -218,14 +218,13 @@ void Nguoi::Nhap()
 }
 void Nguoi::Xuat()
 {
-	for(int i=0;i< taby +1;i++){
-	gotoxy(tabx1+4, taby +i);cout<<Ma<<endl;
-	gotoxy(tabx1+14, taby +i+1);cout<<HoTen<<endl;
-	gotoxy(tabx1+54,taby +i+2);cout<<Tuoi<<endl;
-	gotoxy(tabx1+85, taby +i+3);NgaySinh.XuatDay();
-	gotoxy(tabx1+110, taby +i+4);cout<<GioiTinh<<endl;
-	gotoxy(tabx1+145, taby +i+5);cout<<DiaChi<<endl;
-    }
+    cout<<"\tMa Nhan Vien:\t"<<Ma<<endl;
+	cout<<"\tTen Nhan Vien:\t"<<HoTen<<endl;
+	cout<<"\tTuoi:\t\t"<<Tuoi<<endl;
+	cout<<"\tNgay Sinh:\t";
+	NgaySinh.XuatDay();
+	cout<<"\tGioi Tinh:\t"<<GioiTinh<<endl;
+	cout<<"\tDia Chi:\t"<<DiaChi<<endl;
 }
 		                //THONG TIN NHAN VIEN
 //------------------------------Nhan vien chinh thuc-------------------
@@ -260,11 +259,14 @@ void NhanVienChinhThuc::Nhap()
 }
 void NhanVienChinhThuc::Xuat()
 {
-	gotoxy(boxx2, boxy1);cout<<this->getMa()<<endl;	
-	gotoxy(boxx2+14, boxy1);cout<<ChucVu<<endl;
-	gotoxy(boxx2+16, boxy1);cout<<ThamNien<<endl;
-    gotoxy(boxx2+18, boxy1);cout<<BoPhan<<endl;
-	gotoxy(boxx2+20, boxy1);cout<<this->TinhLuong()<<endl;
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\tNhan Vien Chinh Thuc"<<endl;
+    Nguoi::Xuat();
+	cout<<"\tChuc Vu:\t"<<ChucVu<<endl;
+	cout<<"\tTham Nien:\t"<<ThamNien<<endl;
+    cout<<"\tBo Phan:\t"<<BoPhan<<endl;
+    cout<<"\tHe So Luong:\t"<<HeSoLuong<<endl;
+	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienChinhThuc::TinhLuong()
@@ -295,11 +297,11 @@ void NhanVienBanThoiGian::Nhap()
 
 void NhanVienBanThoiGian::Xuat()
 {
-	cout<<"\tNhan Vien Ban Thoi Gian:"<<endl<<endl;
+	cout<<"\tNhan Vien Ban Thoi Gian"<<endl<<endl;
 	Nguoi::Xuat();
-	cout<<"\tSo Gio Lam la: "<<SoGioLam<<endl;
-	cout<<"\tSo luong Theo Gio La: "<<SoLuongTheoGio<<endl;
-	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
+	cout<<"\tSo Gio Lam la:\t"<<SoGioLam<<endl;
+	cout<<"\tSo luong Theo Gio La:\t"<<SoLuongTheoGio<<endl;
+	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienBanThoiGian::TinhLuong(){
@@ -331,11 +333,11 @@ void NhanVienLamTheoSanPham::Nhap()
 void NhanVienLamTheoSanPham::Xuat()
 {
 	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
-	cout<<"\tNhan Vien Lam Theo San Pham:"<<endl<<endl;
+	cout<<"\tNhan Vien Lam Theo San Pham"<<endl<<endl;
 	Nguoi::Xuat();
-	cout<<"\tSo Luong Hang Hoa: "<<SoLuongHang<<endl;
-	cout<<"\tVao Gia Hang: "<<GiaHang<<endl;
-	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
+	cout<<"\tSo Luong Hang Hoa:\t"<<SoLuongHang<<endl;
+	cout<<"\tVao Gia Hang:\t"<<GiaHang<<endl;
+	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
 }
 float NhanVienLamTheoSanPham::TinhLuong(){
 	return (SoLuongHang *GiaHang);
@@ -364,12 +366,13 @@ void NhanVienThuViec::Nhap()
 
 void NhanVienThuViec::Xuat()
 {
-	cout<<"\t Nhan Vien Thu Viec:"<<endl<<endl;
+	cout<<"+++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+	cout<<"\t Nhan Vien Thu Viec"<<endl<<endl;
 	Nguoi::Xuat();
-	cout<<"\tNgay vao lam la: ";
+	cout<<"\tNgay vao lam la:\t";
 	NgayVaoLam.XuatDay();
-	cout<<"\tMuc Luong Theo Gio La: "<<LuongTheoGio<<endl;
-	cout<<"\tLuong:"<<this->TinhLuong()<<endl;
+	cout<<"\tMuc Luong Theo Gio La:\t"<<LuongTheoGio<<endl;
+	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
 }
 
 float NhanVienThuViec::TinhLuong(){
@@ -412,6 +415,9 @@ public:
 	void TongLuong();
 	Node* getHead(){
 		return head;
+	}
+	long getSize(){
+		return size;
 	}
 
 }; 
@@ -634,428 +640,8 @@ void NhapDS (QuanLiNhanVien &QL)
 	}
 }
 //--------------------xuat-------------------------------------
-void TableDS()
-{
-	SetWindowSize(120, 40);
-	gotoxy(35, 2);
-	cout << "DANH SACH NHAN VIEN";
-	gotoxy(tabx1, taby);
-	cout << char(218);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		cout << char(196);
-	}
-	cout << char(191);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1, taby + i);
-		cout << char(179);
-	}
-
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + tabs - 13, taby + i);
-		cout << char(179);
-	}
-	gotoxy(tabx1, taby + tabw);
-	cout << char(192);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + tabw);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + tabs - 13, taby + tabw);
-	cout << char(217);
-
-	// ISBN
-	gotoxy(tabx1+ 4, taby + 1); cout << "MA NV";
-	gotoxy(tabx1 + 12, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 12, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1, taby + 4);
-	cout << char(195);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + 2);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + 12, taby + 2); cout << char(197);
-	gotoxy(tabx1 + tabs - 13, taby + 2); cout << char(180);
-	gotoxy(tabx1 + 12, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 14, taby + 1); cout << "TEN NV";
-	gotoxy(tabx1 + 26, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 26, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 26, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 26, taby + tabw); cout << char(193);
-	
-	//The loai
-	gotoxy(tabx1 + 28, taby + 1); cout << "TUOI";
-	gotoxy(tabx1 + 32, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 32, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 32, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 32, taby + tabw); cout << char(193);
-	
-	//So trang
-	gotoxy(tabx1 + 34, taby + 1); cout << "NGAY SINH";
-	gotoxy(tabx1 + 44, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 44, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 44, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 44, taby + tabw); cout << char(193);
-	
-	//Nam XB
-	gotoxy(tabx1 + 46, taby + 1); cout << "GIOI TINH";
-	gotoxy(tabx1 + 56, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 56, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 56, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 56, taby + tabw); cout << char(193);
-	// So lan muon
-	gotoxy(tabx1 + 58, taby + 1); cout << "DIA CHI";
-}
-void DSNVCT()
-{
-	SetWindowSize(1000,0);
-	gotoxy(35, 2);
-	cout << "DANH SACH NHAN VIEN CHINH THUC";
-	gotoxy(tabx1, taby);
-	cout << char(218);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		cout << char(196);
-	}
-	cout << char(191);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1, taby + i);
-		cout << char(179);
-	}
-
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + tabs - 13, taby + i);
-		cout << char(179);
-	}
-	gotoxy(tabx1, taby + tabw);
-	cout << char(192);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + tabw);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + tabs - 13, taby + tabw);
-	cout << char(217);
-
-	// ISBN
-	gotoxy(tabx1+ 4, taby + 1); cout << "MA NV";
-	gotoxy(tabx1 + 12, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 12, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1, taby + 4);
-	cout << char(195);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + 2);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + 12, taby + 2); cout << char(197);
-	gotoxy(tabx1 + tabs - 13, taby + 2); cout << char(180);
-	gotoxy(tabx1 + 12, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 14, taby + 1); cout << "TEN NV";
-	gotoxy(tabx1 + 30, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 30, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 30, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 30, taby + tabw); cout << char(193);
-	
-	//The loai
-	gotoxy(tabx1 + 32, taby + 1); cout << "CHUC VU";
-	gotoxy(tabx1 + 42, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 42, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 42, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 42, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 44, taby + 1); cout << "THAM NIEN";
-	gotoxy(tabx1 + 54, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 54, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 54, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 54, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 56, taby + 1); cout << "BO PHAN";
-	gotoxy(tabx1 + 66, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 66, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 66, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 66, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 68, taby + 1); cout << "HS LUONG";	
-}
-void DSNVBTG()
-{
-	SetWindowSize(120, 40);
-	gotoxy(35, 2);
-	cout << "DANH SACH NHAN VIEN BAN THOI GIAN";
-	gotoxy(tabx1, taby);
-	cout << char(218);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		cout << char(196);
-	}
-	cout << char(191);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1, taby + i);
-		cout << char(179);
-	}
-
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + tabs - 13, taby + i);
-		cout << char(179);
-	}
-	gotoxy(tabx1, taby + tabw);
-	cout << char(192);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + tabw);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + tabs - 13, taby + tabw);
-	cout << char(217);
-
-	gotoxy(tabx1+ 4, taby + 1); cout << "MA NV";
-	gotoxy(tabx1 + 14, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 14, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1, taby + 4);
-	cout << char(195);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + 2);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + 14, taby + 2); cout << char(197);
-	gotoxy(tabx1 + tabs - 13, taby + 2); cout << char(180);
-	gotoxy(tabx1 + 14, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 16, taby + 1); cout << "TEN NV";
-	gotoxy(tabx1 + 30, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 30, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 30, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 30, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 32, taby + 1); cout << "SO GIO LAM";
-	gotoxy(tabx1 + 44, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 44, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 44, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 44, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 46, taby + 1); cout << "SO LUONG THEO GIO";
-	gotoxy(tabx1 + 64, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 64, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 64, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 64, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 66, taby + 1); cout << "LUONG ";	
-}
-void DSNVSP()
-{
-	SetWindowSize(120, 40);
-	gotoxy(35, 2);
-	cout << "DANH SACH NHAN VIEN THEO SAN PHAM";
-	gotoxy(tabx1, taby);
-	cout << char(218);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		cout << char(196);
-	}
-	cout << char(191);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1, taby + i);
-		cout << char(179);
-	}
-
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + tabs - 13, taby + i);
-		cout << char(179);
-	}
-	gotoxy(tabx1, taby + tabw);
-	cout << char(192);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + tabw);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + tabs - 13, taby + tabw);
-	cout << char(217);
-	
-	gotoxy(tabx1+ 4, taby + 1); cout << "MA NV";
-	gotoxy(tabx1 + 10, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 10, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1, taby + 4);
-	cout << char(195);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + 2);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + 10, taby + 2); cout << char(197);
-	gotoxy(tabx1 + tabs - 13, taby + 2); cout << char(180);
-	gotoxy(tabx1 + 10, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 12, taby + 1); cout << "TEN NV";
-	gotoxy(tabx1 + 32, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 32, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 32, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 32, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 34, taby + 1); cout << "SO LUONG HANG";
-	gotoxy(tabx1 + 48, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 48, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 48, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 48, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 50, taby + 1); cout << "GIA HANG";
-	gotoxy(tabx1 + 64, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 64, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 64, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 64, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 66, taby + 1); cout << "LUONG ";	
-}
-void DSNVTV()
-{
-	SetWindowSize(120, 40);
-	gotoxy(35, 2);
-	cout << "DANH SACH NHAN VIEN THEO SAN PHAM";
-	gotoxy(tabx1, taby);
-	cout << char(218);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		cout << char(196);
-	}
-	cout << char(191);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1, taby + i);
-		cout << char(179);
-	}
-
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + tabs - 13, taby + i);
-		cout << char(179);
-	}
-	gotoxy(tabx1, taby + tabw);
-	cout << char(192);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + tabw);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + tabs - 13, taby + tabw);
-	cout << char(217);
-	
-	gotoxy(tabx1+ 4, taby + 1); cout << "MA NV";
-	gotoxy(tabx1 + 10, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 10, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1, taby + 4);
-	cout << char(195);
-	for(int i = 1; i < tabs - 13; i++)
-	{
-		gotoxy(tabx1 + i, taby + 2);
-		cout << char(196);
-	}
-	gotoxy(tabx1 + 10, taby + 2); cout << char(197);
-	gotoxy(tabx1 + tabs - 13, taby + 2); cout << char(180);
-	gotoxy(tabx1 + 10, taby + tabw); cout << char(193);
-
-	gotoxy(tabx1 + 12, taby + 1); cout << "TEN NV";
-	gotoxy(tabx1 + 32, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 32, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 32, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 32, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 34, taby + 1); cout << "NGAY VAO LAM";
-	gotoxy(tabx1 + 48, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 48, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 48, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 48, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 50, taby + 1); cout << "LUONG THEO GIO";
-	gotoxy(tabx1 + 66, taby); cout << char(194);
-	for(int i = 1; i < tabw + 1; i++)
-	{
-		gotoxy(tabx1 + 66, taby + i); cout << char(179);
-	}
-	gotoxy(tabx1 + 66, taby + 2); cout << char(197);
-	gotoxy(tabx1 + 66, taby + tabw); cout << char(193);
-	
-	gotoxy(tabx1 + 68, taby + 1); cout << "LUONG ";	
-}
 void QuanLiNhanVien::XuatDS(){
 	Nguoi *nv;
-	DSNVTV();
 	for(Node *p= head;p!=NULL;p = p->next){
 		p->data->Xuat();
     }	
@@ -1076,14 +662,13 @@ void QuanLiNhanVien::insertafter(Node* p, Nguoi *nv){
 void ThemNhanVien(QuanLiNhanVien &QL)
 {
 	Nguoi *nv;
-	int a, flat = 1;
+	int a;
 	Node* p=QL.getHead();
 	cout<<"------------Them Nhan Vien----------"<<endl;
     cout<<"1: Nhan vien Chinh Thuc." << endl;
 	cout<<"2: Nhan Vien Lam Theo San Pham." <<endl;
 	cout<<"3: Nhan Vien Ban Thoi Gian."<<endl;
 	cout<<"4: Nhan Vien Thu Viec."<<endl;
-	cout<<"5: Thoat Them Nhan Vien."<<endl;
 	cout<<"Hay Chon mot chuc Nang Tren (Bam So):";
 	cin>>a;
 	switch(a)
