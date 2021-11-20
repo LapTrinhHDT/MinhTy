@@ -413,6 +413,7 @@ public:
 	void MaxLuong();
 	void MinLuong();
 	void TongLuong();
+	void GhiFileDS();
 	Node* getHead(){
 		return head;
 	}
@@ -647,6 +648,29 @@ void QuanLiNhanVien::XuatDS(){
     }	
     getch();
 	system("cls"); 
+}
+void QuanLiNhanVien::GhiFileDS()
+{
+	ofstream f("NhanVien.txt");
+	int size = 0;
+	for (int i = 0; i < size; i++)
+	{
+		size++;
+	}
+	f << size << endl;
+	for (int i = 0; i < size; i++)
+	{
+		Nguoi *nv=new NhanVienChinhThuc;
+		f << nv[i].Ma << endl;
+		f << nv[i].HoTen << endl;
+		for(Node *p = head; p !=NULL; p=p->next)
+		{
+			f << p->data->Ma << endl;
+			f << p->data->HoTen << endl;
+			f << p->data->Tuoi << endl;
+		}
+	}
+	f.close();
 }
 //-------------------------------------------------
 void QuanLiNhanVien::insertafter(Node* p, Nguoi *nv){
@@ -997,8 +1021,8 @@ void Menu()
 	int Chon, Flat =1;
 	int x = 15, y = 1;
 	int NhanNut;
-	char text[14][100]={" 1. NHAP NHAN VIEN ", " 2. XUAT NHAN VIEN ", " 3. THEM NHAN VIEN "," 4. SUA NHAN VIEN "," 5. TONG SO NHAN VIEN ", " 6. TIM KIEM NHAN VIEN THEO TEN ", " 7. TIM KIEM NHAN VIEN THEO MA ",
-	" 8. XOA NHAN VIEN " , " 9. SAP XEP THEO TEN NHAN VIEN ", "10. SAP XEP THEO MA NHAN VIEN ","11. MAX LUONG ", "12. MIN LUONG ","13. TONG LUONG ", "14. KET THUC CHUONG TRINH "};
+	char text[15][100]={" 1. NHAP NHAN VIEN ", " 2. XUAT NHAN VIEN ", " 3. THEM NHAN VIEN "," 4. SUA NHAN VIEN "," 5. TONG SO NHAN VIEN ", " 6. TIM KIEM NHAN VIEN THEO TEN ", " 7. TIM KIEM NHAN VIEN THEO MA ",
+	" 8. XOA NHAN VIEN " , " 9. SAP XEP THEO TEN NHAN VIEN ", "10. SAP XEP THEO MA NHAN VIEN ","11. MAX LUONG ", "12. MIN LUONG ","13. TONG LUONG ","14. GHI FILE" ,"15. KET THUC CHUONG TRINH "};
 Menu:	
 	SetWindowSize(100, 40);
 	int c = 0;
@@ -1032,6 +1056,7 @@ Menu:
 	gotoxy(15, 27); cout << text[11];
 	gotoxy(15, 28); cout << text[12];
 	gotoxy(15, 29); cout << text[13];
+	gotoxy(15, 30); cout << text[14];
 	
 	do{
 		gotoxy(x, y);
@@ -1052,6 +1077,7 @@ Menu:
 			case 12: gotoxy(15, 27); cout << text[11];break;
 			case 13: gotoxy(15, 28); cout << text[12];break;
 			case 14: gotoxy(15, 29); cout << text[13];break;
+			case 15: gotoxy(15, 30); cout << text[14];break;
 		}
 		NhanNut = getch();
 		if (NhanNut == UP)
@@ -1074,11 +1100,12 @@ Menu:
 				case 12: gotoxy(15, 27); cout << text[11];break;
 				case 13: gotoxy(15, 28); cout << text[12];break;
 				case 14: gotoxy(15, 29); cout << text[13];break;
+				case 15: gotoxy(15, 30); cout << text[14];break;
 			}
 			y--;
 			if (y < 1)
 			{
-				y = 14;
+				y = 15;
 			}
 		}
 		else if (NhanNut == DOWN)
@@ -1101,9 +1128,10 @@ Menu:
 				case 12: gotoxy(15, 27); cout << text[11];break;
 				case 13: gotoxy(15, 28); cout << text[12];break;
 				case 14: gotoxy(15, 29); cout << text[13];break;
+				case 15: gotoxy(15, 30); cout << text[14];break;
 				}
 			y++;
-			if (y > 14)
+			if (y > 15)
 			{
 				y = 1;
 			}
@@ -1212,8 +1240,16 @@ Menu:
 			getch();
 			goto Menu;
 		}
-		
 		else if (y == 14 && NhanNut == ENTER)
+		{
+			textcolor(15);
+			system("cls");
+			t.GhiFileDS();
+			getch();
+			goto Menu;
+		}
+		
+		else if (y == 15 && NhanNut == ENTER)
 		{
 			exit(0);
 			textcolor(15);
