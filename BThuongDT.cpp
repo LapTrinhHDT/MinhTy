@@ -603,7 +603,7 @@ void NhapDS (QuanLiNhanVien &QL)
 		QL.AddLast(nv);
 	}
 	system("cls");
-	gotoxy(15,10);cout<<"Nhap so Luong Ban Thoi Gian:";
+	gotoxy(15,10);cout<<"Nhap so Luong Nhan Vien Ban Thoi Gian:";
 	cin>>SL2;
 	for (int i = 0; i < SL2; i++)
 	{
@@ -616,7 +616,7 @@ void NhapDS (QuanLiNhanVien &QL)
 		QL.AddLast(nv);
 	}
 	system("cls");
-	gotoxy(15,10);cout<<"Nhap so Luong lam theo san pham:";
+	gotoxy(15,10);cout<<"Nhap so Luong Nhan Vien Lam Theo San Pham:";
 	cin>>SL3;
 	for (int i = 0; i < SL3; i++)
 	{
@@ -629,7 +629,7 @@ void NhapDS (QuanLiNhanVien &QL)
 		QL.AddLast(nv);
 	}
 	system("cls");
-	gotoxy(15,10);cout<<"Nhap so Luong Thu viec:";
+	gotoxy(15,10);cout<<"Nhap so Luong Nhan Vien Thu Viec:";
 	cin>>SL4;
 	for (int i = 0; i < SL4; i++)
 	{
@@ -672,8 +672,8 @@ void ThemNhanVien(QuanLiNhanVien &QL)
 	Node* p=QL.getHead();
 	cout<<"------------Them Nhan Vien----------"<<endl;
     cout<<"1: Nhan vien Chinh Thuc." << endl;
-	cout<<"2: Nhan Vien Lam Theo San Pham." <<endl;
-	cout<<"3: Nhan Vien Ban Thoi Gian."<<endl;
+	cout<<"2: Nhan Vien Ban Thoi Gian." <<endl;
+	cout<<"3: Nhan Vien Lam Theo San Pham."<<endl;
 	cout<<"4: Nhan Vien Thu Viec."<<endl;
 	cout<<"5: Thoat Them Nhan Vien."<<endl;
 	cout<<"Hay Chon mot chuc Nang Tren (Bam So):";
@@ -779,7 +779,7 @@ void QuanLiNhanVien::TimKiemTen(){
 	getline(cin,TenTK);
 	for(Node*p=head;p!=NULL;p=p->next){
 		if(p->data->HoTen==TenTK){
-			cout<<"NHAN VIEN CAN TIM LA"<<endl;
+			cout<<"NHAN VIEN CAN TIM LA:"<<endl;
 			p->data->Xuat();
 		}
 	}
@@ -791,7 +791,7 @@ void QuanLiNhanVien::TimKiemMa(){
 	getline(cin,MaTK);
 	for(Node*p=head;p!=NULL;p=p->next){
 		if(p->data->Ma==MaTK){
-			cout<<"NHAN VIEN CAN TIM LA"<<endl;
+			cout<<"NHAN VIEN CAN TIM LA:"<<endl;
 			p->data->Xuat();
 		}
 	}
@@ -899,7 +899,7 @@ void QuanLiNhanVien::MaxLuong(){
 			Max=p->data;
 		}
 	}
-	cout<<"Nhan Vien co Luong cao nhat"<<endl;
+	cout<<"Nhan Vien co Luong cao nhat:"<<endl;
 	gotoxy(17,15);Max->Xuat();
 }          
 void QuanLiNhanVien::MinLuong(){
@@ -910,7 +910,7 @@ void QuanLiNhanVien::MinLuong(){
 			Min=p->data;
 		}
 	}
-	cout<<"Nhan Vien co Luong thap nhat"<<endl;
+	cout<<"Nhan Vien co Luong thap nhat:"<<endl;
 	gotoxy(17,15);Min->Xuat();
 }                
 void QuanLiNhanVien::TongLuong(){
