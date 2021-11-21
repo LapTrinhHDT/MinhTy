@@ -1033,7 +1033,6 @@ Menu:
 		system("cls");
      	gotoxy(10, 5); cout <<     "                                 QUAN LY NHAN VIEN ";
 	    gotoxy(30, 27); cout<<"Nguyen Thi Quynh Quyen\t"<<"Nguyen Huy Hoang\t"<<"Van Minh Ty";
-	    gotoxy(30, 28); cout<<"\t"<<"\t"<<"6151071114";
 		Sleep(100);
 	} while (1);
 	gotoxy(15, 10); cout << text[0];
