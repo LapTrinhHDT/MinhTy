@@ -218,13 +218,13 @@ void Nguoi::Nhap()
 }
 void Nguoi::Xuat()
 {
-    cout<<"\tMa Nhan Vien:\t"<<Ma<<endl;
-	cout<<"\tTen Nhan Vien:\t"<<HoTen<<endl;
-	cout<<"\tTuoi:\t\t"<<Tuoi<<endl;
-	cout<<"\tNgay Sinh:\t";
+    cout<<"\tMa Nhan Vien:\t\t"<<Ma<<endl;
+	cout<<"\tTen Nhan Vien:\t\t"<<HoTen<<endl;
+	cout<<"\tTuoi:\t\t\t"<<Tuoi<<endl;
+	cout<<"\tNgay Sinh:\t\t";
 	NgaySinh.XuatDay();
-	cout<<"\tGioi Tinh:\t"<<GioiTinh<<endl;
-	cout<<"\tDia Chi:\t"<<DiaChi<<endl;
+	cout<<"\tGioi Tinh:\t\t"<<GioiTinh<<endl;
+	cout<<"\tDia Chi:\t\t"<<DiaChi<<endl;
 }
 		                //THONG TIN NHAN VIEN
 //------------------------------Nhan vien chinh thuc-------------------
@@ -261,17 +261,17 @@ void NhanVienChinhThuc::Xuat()
 {
 	cout<<"\tNhan Vien Chinh Thuc"<<endl<<endl;
     Nguoi::Xuat();
-	cout<<"\tChuc Vu:\t"<<ChucVu<<endl;
-	cout<<"\tTham Nien:\t"<<ThamNien<<endl;
-    cout<<"\tBo Phan:\t"<<BoPhan<<endl;
-    cout<<"\tHe So Luong:\t"<<HeSoLuong<<endl;
-	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
-	cout<<"-------------------------------------------"<<endl;
+	cout<<"\tChuc Vu:\t\t"<<ChucVu<<endl;
+	cout<<"\tTham Nien:\t\t"<<ThamNien<<endl;
+    cout<<"\tBo Phan:\t\t"<<BoPhan<<endl;
+    cout<<"\tHe So Luong:\t\t"<<HeSoLuong<<endl;
+	cout<<"\tLuong:\t\t\t"<<this->TinhLuong()<<endl;
+	cout<<"\t-------------------------------------------"<<endl;
 }
 
 float NhanVienChinhThuc::TinhLuong()
 {
-	return (HeSoLuong*1600*0.8);
+	return (HeSoLuong*1800*0.8);
 }
 
 //---------------------------------Nhan Vien Ban Thoi Gian-------------------
@@ -299,10 +299,10 @@ void NhanVienBanThoiGian::Xuat()
 {
 	cout<<"\tNhan Vien Ban Thoi Gian"<<endl<<endl;
 	Nguoi::Xuat();
-	cout<<"\tSo Gio Lam la:\t"<<SoGioLam<<endl;
+	cout<<"\tSo Gio Lam la:\t\t"<<SoGioLam<<endl;
 	cout<<"\tSo luong Theo Gio La:\t"<<SoLuongTheoGio<<endl;
-	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
-	cout<<"-------------------------------------------"<<endl;
+	cout<<"\tLuong:\t\t\t"<<this->TinhLuong()<<endl;
+	cout<<"\t-------------------------------------------"<<endl;
 }
 
 float NhanVienBanThoiGian::TinhLuong(){
@@ -336,9 +336,9 @@ void NhanVienLamTheoSanPham::Xuat()
 	cout<<"\tNhan Vien Lam Theo San Pham"<<endl<<endl;
 	Nguoi::Xuat();
 	cout<<"\tSo Luong Hang Hoa:\t"<<SoLuongHang<<endl;
-	cout<<"\tVao Gia Hang:\t"<<GiaHang<<endl;
-	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
-	cout<<"-------------------------------------------"<<endl;
+	cout<<"\tVao Gia Hang:\t\t"<<GiaHang<<endl;
+	cout<<"\tLuong:\t\t\t"<<this->TinhLuong()<<endl;
+	cout<<"\t-------------------------------------------"<<endl;
 }
 float NhanVienLamTheoSanPham::TinhLuong(){
 	return (SoLuongHang *GiaHang);
@@ -372,8 +372,8 @@ void NhanVienThuViec::Xuat()
 	cout<<"\tNgay vao lam la:\t";
 	NgayVaoLam.XuatDay();
 	cout<<"\tMuc Luong Theo Gio La:\t"<<LuongTheoGio<<endl;
-	cout<<"\tLuong:\t\t"<<this->TinhLuong()<<endl;
-	cout<<"-------------------------------------------"<<endl;	
+	cout<<"\tLuong:\t\t\t"<<this->TinhLuong()<<endl;
+	cout<<"\t-------------------------------------------"<<endl;	
 }
 
 float NhanVienThuViec::TinhLuong(){
@@ -645,6 +645,8 @@ void NhapDS (QuanLiNhanVien &QL)
 //--------------------xuat-------------------------------------
 void QuanLiNhanVien::XuatDS(){
 	Nguoi *nv;
+	gotoxy(25,0); cout<<"DANH SACH NHAN VIEN";
+	gotoxy(5,1); cout<<"---------------------------------------------------------"<<endl;
 	for(Node *p= head;p!=NULL;p = p->next){
 		p->data->Xuat();
     }	
@@ -673,6 +675,7 @@ void ThemNhanVien(QuanLiNhanVien &QL)
 	cout<<"2: Nhan Vien Lam Theo San Pham." <<endl;
 	cout<<"3: Nhan Vien Ban Thoi Gian."<<endl;
 	cout<<"4: Nhan Vien Thu Viec."<<endl;
+	cout<<"5: Thoat Them Nhan Vien."<<endl;
 	cout<<"Hay Chon mot chuc Nang Tren (Bam So):";
 	cin>>a;
 	switch(a)
@@ -753,6 +756,13 @@ void ThemNhanVien(QuanLiNhanVien &QL)
 	   		system("cls");
 	    	break;
 		}
+		case 5:
+		{
+			cout<<"BAN DA THOAT!"<<endl;
+			getch();
+			system("cls");
+			break;
+		}
 		default:
 		{
 		cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
@@ -769,6 +779,7 @@ void QuanLiNhanVien::TimKiemTen(){
 	getline(cin,TenTK);
 	for(Node*p=head;p!=NULL;p=p->next){
 		if(p->data->HoTen==TenTK){
+			cout<<"NHAN VIEN CAN TIM LA"<<endl;
 			p->data->Xuat();
 		}
 	}
@@ -780,6 +791,7 @@ void QuanLiNhanVien::TimKiemMa(){
 	getline(cin,MaTK);
 	for(Node*p=head;p!=NULL;p=p->next){
 		if(p->data->Ma==MaTK){
+			cout<<"NHAN VIEN CAN TIM LA"<<endl;
 			p->data->Xuat();
 		}
 	}
@@ -789,7 +801,7 @@ void QuanLiNhanVien::DemNhanVien(){
 	for(Node*p=head;p!=NULL;p=p->next){
 		Dem++;
 	}
-	cout<<"Tong so Nhan Vien la:"<<Dem<<endl;
+	gotoxy(30,20);cout<<"TONG SO NHAN VIEN LA:"<<Dem<<endl;
 }
 
 
@@ -834,12 +846,12 @@ void QuanLiNhanVien::XoaNhanVien(){
 		if(p->data->Ma == Maxoa){
 			if(p==head){
 			   	removefirst();
-			   	cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
+			   	gotoxy(30,20); cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
 			   	return;
 			}
 			else if(p==tail){
 				removelast();
-				cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
+				gotoxy(30,20);cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
 				return;
 			}
 			else{
@@ -847,7 +859,7 @@ void QuanLiNhanVien::XoaNhanVien(){
             	pre->next = p->next;
 				delete p;
 				size--;
-				cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
+				gotoxy(30,20);cout<<"XOA NHAN VIEN THANH CONG!"<<endl;
 			}
 		}
 	}
@@ -888,7 +900,7 @@ void QuanLiNhanVien::MaxLuong(){
 		}
 	}
 	cout<<"Nhan Vien co Luong cao nhat"<<endl;
-	Max->Xuat();
+	gotoxy(17,15);Max->Xuat();
 }          
 void QuanLiNhanVien::MinLuong(){
 	Node*p=head;
@@ -899,14 +911,14 @@ void QuanLiNhanVien::MinLuong(){
 		}
 	}
 	cout<<"Nhan Vien co Luong thap nhat"<<endl;
-	Min->Xuat();
+	gotoxy(17,15);Min->Xuat();
 }                
 void QuanLiNhanVien::TongLuong(){
 	float Tong=0;
 	for(Node*p=head;p!=NULL;p=p->next){
 		Tong=Tong+ p->data->TinhLuong();
 	}
-	cout<<"Tong Luong cua tat ca Nhan Vien la:"<<Tong<<endl;
+	gotoxy(30,20);cout<<"TONG LUONG CUA TAT CA NHAN VIEN LA:"<<Tong;
 }
 // Sua nhan vien
 void QuanLiNhanVien::SuaNhanVien(){
@@ -935,8 +947,8 @@ void QuanLiNhanVien::SuaNhanVien(){
 					fflush(stdin);
 					getline(cin,Ten);
 					p->data->HoTen = Ten ;
-					cout<<"Ten Da Duoc Sua La: ";
-					p->data->Xuat();
+					cout<<"Ten Da Duoc Sua La: "<<endl;
+					gotoxy(17,15);p->data->Xuat();
 				    break;
 			    }
 				case 2:
@@ -945,52 +957,52 @@ void QuanLiNhanVien::SuaNhanVien(){
 					cout<<"Nhap Vao Tuoi Can Sua : ";
 					cin>>Tuoi;
 					p->data->Tuoi = Tuoi;
-					cout<<"Tuoi Da Duoc Sua La: ";
-					p->data->Xuat();
+					cout<<"Tuoi Da Duoc Sua La: "<<endl;
+					gotoxy(17,15);p->data->Xuat();
 					break;
 				}
 				case 3:	
 				{																				
 					Day NgaySinh;
 					cout<<"Nhap Ngay Sinh Can Sua ";
-						NgaySinh.NhapDay();
-						p->data->NgaySinh = NgaySinh;
-						cout<<"Ngay Sinh Da Duoc Sua La: ";
-						p->data->Xuat();
-						break;	
-					}
-					case 4:			
-					{		
-						string GioiTinh;
-						cout<<"Nhap Vao Gioi Tinh Can Sua La: ";
-						fflush(stdin);
-						getline(cin,GioiTinh);
-						p->data->GioiTinh = GioiTinh ;
-						cout<<"Gioi Tinh Da Duoc Sua La: ";
-						p->data->Xuat();	
-						break;	
-					}
-					case 5:		
-					{				
-						string DiaChi;
-						cout<<"Nhap Vao Dia Chi Can Sua La: ";
-						fflush(stdin);
-						getline(cin,DiaChi);
-						p->data->DiaChi = DiaChi ;
-						cout<<"Dia Chi Da Duoc Sua La: ";
-						p->data->Xuat();
-						break;
-					}
-					case 6:	
-					{	
-						cout<<"BAN DA THOAT!"<<endl;
-						break;
-					}
-					default:
-						cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
-						break;
+					NgaySinh.NhapDay();
+					p->data->NgaySinh = NgaySinh;
+					cout<<"Ngay Sinh Da Duoc Sua La: "<<endl;
+					gotoxy(17,15);p->data->Xuat();
+					break;	
 				}
-		    }
+				case 4:			
+				{		
+					string GioiTinh;
+					cout<<"Nhap Vao Gioi Tinh Can Sua La: ";
+					fflush(stdin);
+					getline(cin,GioiTinh);
+					p->data->GioiTinh = GioiTinh ;
+					cout<<"Gioi Tinh Da Duoc Sua La: "<<endl;
+					gotoxy(17,15);p->data->Xuat();	
+					break;	
+				}
+				case 5:		
+				{				
+					string DiaChi;
+					cout<<"Nhap Vao Dia Chi Can Sua La: ";
+					fflush(stdin);
+					getline(cin,DiaChi);
+					p->data->DiaChi = DiaChi ;
+					cout<<"Dia Chi Da Duoc Sua La: "<<endl;
+					gotoxy(17,15);p->data->Xuat();
+					break;
+				}
+				case 6:	
+				{	
+					cout<<"BAN DA THOAT!"<<endl;
+					break;
+				}
+				default:
+					cout<<"Chuc Nang Ban Nhap khong Dung. Xin Vui Long Nhap Lai!"<<endl;
+					break;
+			}
+	    }
 	}
 }
 //---------------------------------------------
@@ -1020,42 +1032,44 @@ Menu:
 		}
 		system("cls");
      	gotoxy(10, 5); cout <<     "                                 QUAN LY NHAN VIEN ";
+	    gotoxy(30, 27); cout<<"Nguyen Thi Quynh Quyen\t"<<"Nguyen Huy Hoang\t"<<"Van Minh Ty";
+	    gotoxy(30, 28); cout<<"\t"<<"\t"<<"6151071114";
 		Sleep(100);
 	} while (1);
-	gotoxy(15, 16); cout << text[0];
-	gotoxy(15, 17); cout << text[1];
-	gotoxy(15, 18); cout << text[2];
-	gotoxy(15, 19); cout << text[3];
-	gotoxy(15, 20); cout << text[4];
-	gotoxy(15, 21); cout << text[5];
-	gotoxy(15, 22); cout << text[6];
-	gotoxy(15, 23); cout << text[7];
-	gotoxy(15, 24); cout << text[8];
-	gotoxy(15, 25); cout << text[9];
-	gotoxy(15, 26); cout << text[10];
-	gotoxy(15, 27); cout << text[11];
-	gotoxy(15, 28); cout << text[12];
-	gotoxy(15, 29); cout << text[13];
+	gotoxy(15, 10); cout << text[0];
+	gotoxy(15, 11); cout << text[1];
+	gotoxy(15, 12); cout << text[2];
+	gotoxy(15, 13); cout << text[3];
+	gotoxy(15, 14); cout << text[4];
+	gotoxy(15, 15); cout << text[5];
+	gotoxy(15, 16); cout << text[6];
+	gotoxy(15, 17); cout << text[7];
+	gotoxy(15, 18); cout << text[8];
+	gotoxy(15, 19); cout << text[9];
+	gotoxy(15, 20); cout << text[10];
+	gotoxy(15, 21); cout << text[11];
+	gotoxy(15, 22); cout << text[12];
+	gotoxy(15, 23); cout << text[13];
 	
 	do{
 		gotoxy(x, y);
 		textcolor(15);
 		switch (y)
 		{
-			case 1: gotoxy(15, 16); cout << text[0]; break;
-			case 2: gotoxy(15, 17); cout << text[1]; break;
-			case 3: gotoxy(15, 18); cout << text[2]; break;
-			case 4: gotoxy(15, 19); cout << text[3]; break;
-			case 5: gotoxy(15, 20); cout << text[4]; break;
-			case 6: gotoxy(15, 21); cout << text[5]; break;
-			case 7: gotoxy(15, 22); cout << text[6]; break;
-			case 8: gotoxy(15, 23); cout << text[7]; break;
-			case 9: gotoxy(15, 24); cout << text[8]; break;
-			case 10: gotoxy(15, 25); cout << text[9]; break;
-			case 11: gotoxy(15, 26); cout << text[10];break;
-			case 12: gotoxy(15, 27); cout << text[11];break;
-			case 13: gotoxy(15, 28); cout << text[12];break;
-			case 14: gotoxy(15, 29); cout << text[13];break;
+			case 1: gotoxy(15, 10); cout << text[0]; break;
+			case 2: gotoxy(15, 11); cout << text[1]; break;
+			case 3: gotoxy(15, 12); cout << text[2]; break;
+			case 4: gotoxy(15, 13); cout << text[3]; break;
+			case 5: gotoxy(15, 14); cout << text[4]; break;
+			case 6: gotoxy(15, 15); cout << text[5]; break;
+			case 7: gotoxy(15, 16); cout << text[6]; break;
+			case 8: gotoxy(15, 17); cout << text[7]; break;
+			case 9: gotoxy(15, 18); cout << text[8]; break;
+			case 10: gotoxy(15, 19); cout << text[9]; break;
+			case 11: gotoxy(15, 20); cout << text[10];break;
+			case 12: gotoxy(15, 21); cout << text[11];break;
+			case 13: gotoxy(15, 22); cout << text[12];break;
+			case 14: gotoxy(15, 23); cout << text[13];break;
 		}
 		NhanNut = getch();
 		if (NhanNut == UP)
@@ -1064,20 +1078,20 @@ Menu:
 			textcolor(15);
 			switch (y)
 			{
-				case 1: gotoxy(15, 16); cout << text[0]; break;
-				case 2: gotoxy(15, 17); cout << text[1]; break;
-				case 3: gotoxy(15, 18); cout << text[2]; break;
-				case 4: gotoxy(15, 19); cout << text[3]; break;
-				case 5: gotoxy(15, 20); cout << text[4]; break;
-				case 6: gotoxy(15, 21); cout << text[5]; break;
-				case 7: gotoxy(15, 22); cout << text[6]; break;
-				case 8: gotoxy(15, 23); cout << text[7]; break;
-				case 9: gotoxy(15, 24); cout << text[8]; break;
-				case 10: gotoxy(15, 25); cout << text[9]; break;
-				case 11: gotoxy(15, 26); cout << text[10];break;
-				case 12: gotoxy(15, 27); cout << text[11];break;
-				case 13: gotoxy(15, 28); cout << text[12];break;
-				case 14: gotoxy(15, 29); cout << text[13];break;
+				case 1: gotoxy(15, 10); cout << text[0]; break;
+				case 2: gotoxy(15, 11); cout << text[1]; break;
+				case 3: gotoxy(15, 12); cout << text[2]; break;
+				case 4: gotoxy(15, 13); cout << text[3]; break;
+				case 5: gotoxy(15, 14); cout << text[4]; break;
+				case 6: gotoxy(15, 15); cout << text[5]; break;
+				case 7: gotoxy(15, 16); cout << text[6]; break;
+				case 8: gotoxy(15, 17); cout << text[7]; break;
+				case 9: gotoxy(15, 18); cout << text[8]; break;
+				case 10: gotoxy(15, 19); cout << text[9]; break;
+				case 11: gotoxy(15, 20); cout << text[10];break;
+				case 12: gotoxy(15, 21); cout << text[11];break;
+				case 13: gotoxy(15, 22); cout << text[12];break;
+				case 14: gotoxy(15, 23); cout << text[13];break;
 			}
 			y--;
 			if (y < 1)
@@ -1091,20 +1105,20 @@ Menu:
 			textcolor(15);
 			switch (y)
 			{
-				case 1: gotoxy(15, 16); cout << text[0]; break;
-				case 2: gotoxy(15, 17); cout << text[1]; break;
-				case 3: gotoxy(15, 18); cout << text[2]; break;
-				case 4: gotoxy(15, 19); cout << text[3]; break;
-				case 5: gotoxy(15, 20); cout << text[4]; break;
-				case 6: gotoxy(15, 21); cout << text[5]; break;
-				case 7: gotoxy(15, 22); cout << text[6]; break;
-				case 8: gotoxy(15, 23); cout << text[7]; break;
-				case 9: gotoxy(15, 24); cout << text[8]; break;
-				case 10: gotoxy(15, 25); cout << text[9]; break;
-				case 11: gotoxy(15, 26); cout << text[10];break;
-				case 12: gotoxy(15, 27); cout << text[11];break;
-				case 13: gotoxy(15, 28); cout << text[12];break;
-				case 14: gotoxy(15, 29); cout << text[13];break;				
+				case 1: gotoxy(15, 10); cout << text[0]; break;
+				case 2: gotoxy(15, 11); cout << text[1]; break;
+				case 3: gotoxy(15, 12); cout << text[2]; break;
+				case 4: gotoxy(15, 13); cout << text[3]; break;
+				case 5: gotoxy(15, 14); cout << text[4]; break;
+				case 6: gotoxy(15, 15); cout << text[5]; break;
+				case 7: gotoxy(15, 16); cout << text[6]; break;
+				case 8: gotoxy(15, 17); cout << text[7]; break;
+				case 9: gotoxy(15, 18); cout << text[8]; break;
+				case 10: gotoxy(15, 19); cout << text[9]; break;
+				case 11: gotoxy(15, 20); cout << text[10];break;
+				case 12: gotoxy(15, 21); cout << text[11];break;
+				case 13: gotoxy(15, 22); cout << text[12];break;
+				case 14: gotoxy(15, 23); cout << text[13];break;				
 				}
 			y++;
 			if (y > 14)
@@ -1218,7 +1232,7 @@ Menu:
 		{
 			exit(0);
 			textcolor(15);
-		}	
+		}
 	} while (true);
 }	
 int main(){
